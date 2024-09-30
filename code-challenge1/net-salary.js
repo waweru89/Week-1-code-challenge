@@ -1,6 +1,6 @@
-
+// function to calculate net salary
 function calculateNetSalary(basicSalary, benefits) {
-    
+//    constants for deductions 
     const nhifRate = 150; 
     const nssfRate = 0.06;
     const taxBrackets = [
@@ -10,10 +10,13 @@ function calculateNetSalary(basicSalary, benefits) {
         { limit: 50000, rate: 0.25 },
         { limit: Infinity, rate: 0.3 }
     ];
-    
+    // calculate grossSalary
     let grossSalary = basicSalary + benefits;
+// calculate  deductions
     let nhifDeduction = nhifRate;
     let nssfDeduction = grossSalary * nssfRate;
+
+    // calculate TaxableIncome
     let taxableIncome = grossSalary - (nhifDeduction + nssfDeduction);
     let paye = 0;
     let previousLimit = 0;
@@ -28,19 +31,14 @@ function calculateNetSalary(basicSalary, benefits) {
         }
     }
 
-    
+//    calculate NetSalary
     let netSalary = grossSalary - (nhifDeduction + nssfDeduction + paye);
-    
-    
-    console.log("Gross Salary: KSh " + grossSalary.toFixed(2));
-    console.log("NHIF Deduction: KSh " + nhifDeduction.toFixed(2));
-    console.log("NSSF Deduction: KSh " + nssfDeduction.toFixed(2));
-    console.log("PAYE (Tax): KSh " + paye.toFixed(2));
-    console.log("Net Salary: KSh " + netSalary.toFixed(2));
+    const roundToTwoDecimals = (num) => Math.round(num * 100) / 100;
+    console.log(`Gross Salary: KSh ${roundToTwoDecimals(grossSalary)}`);
+    console.log(`NHIF Deduction: KSh ${roundToTwoDecimals(nhifDeduction)}`);
+    console.log(`NSSF Deduction: KSh ${roundToTwoDecimals(nssfDeduction)}`);
+    console.log(`PAYE (Tax): KSh ${roundToTwoDecimals(paye)}`);
+    console.log(`Net Salary: KSh ${roundToTwoDecimals(netSalary)}`);
+   
+
 }
-
-
-let basicSalary = parseFloat(prompt("Enter Basic Salary:"));
-let benefits = parseFloat(prompt("Enter Benefits:"));
-
-calculateNetSalary(basicSalary, benefits);
