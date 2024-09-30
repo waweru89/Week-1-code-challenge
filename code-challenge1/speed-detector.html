@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Speed Demerit Points Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Car Speed Demerit Points Calculator</h1>
+        <input type="number" id="speed" placeholder="Enter Speed (km/h)">
+        <button onclick="calculateDemeritPoints()">Calculate Demerit Points</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateDemeritPoints() {
+            const speed = parseFloat(document.getElementById('speed').value);
+            let result;
+            if (speed < 70) {
+                result = "Ok";
+            } else {
+                const points = Math.floor((speed - 70) / 5);
+                result = `Points: ${points}`;
+                if (points > 12) {
+                    result += " - id =License suspended";
+                }
+            }
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>

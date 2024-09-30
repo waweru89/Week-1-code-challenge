@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Grade Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Marks Grade Calculator</h1>
+        <input type="number" id="marks" placeholder="Enter Student Marks (0-100)">
+        <button onclick="calculateGrade()">Calculate Grade</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateGrade() {
+            const marks = parseFloat(document.getElementById('marks').value);
+            let grade;
+            if (marks < 0 || marks > 100) {
+                grade = "Invalid marks! Please enter between 0 and 100.";
+            } else if (marks > 79) {
+                grade = "Grade: A";
+            } else if (marks >= 60) {
+                grade = "Grade: B";
+            } else if (marks >= 49) {
+                grade = "Grade: C";
+            } else if (marks >= 40) {
+                grade = "Grade: D";
+            } else {
+                grade = "Grade: E";
+            }
+            document.getElementById('result').innerText = grade;
+        }
+    </script>
+</body>
+</html>

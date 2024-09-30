@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Salary Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Net Salary Calculator</h1>
+        <input type="number" id="basicSalary" placeholder="Enter Basic Salary">
+        <input type="number" id="benefits" placeholder="Enter Benefits">
+        <button onclick="calculateNetSalary()">Calculate Net Salary</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function calculateNetSalary() {
+            const basicSalary = parseFloat(document.getElementById('basicSalary').value);
+            const benefits = parseFloat(document.getElementById('benefits').value);
+            const nhifRate = 150;
+            const nssfRate = 0.06;
+            const taxBrackets = [
+                { limit: 24000, rate: 0.1 },
+                { limit: 32333, rate: 0.15 },
+                { limit: 40000, rate: 0.2 },
+                { limit: 50000, rate: 0.25 },
+                { limit: Infinity, rate: 0.3 }
+            ];
+
+            const grossSalary = basicSalary + benefits;
+            const nhifDeduction = nhifRate;
+            const nssfDeduction = grossSalary * nssfRate;
+
+            let taxableIncome = grossSalary - (nhifDeduction + nssfDeduction);
+            let paye = 0;
+            let previousLimit = 0;
+
+            for (const { limit, rate } of taxBrackets) {
+                if (taxableIncome > previousLimit) {
+                    const taxableAmount = Math.min(taxableIncome, limit) - previousLimit;
+                    paye += taxableAmount * rate;
+                    previousLimit = limit;
+                } else {
+                    break;
+                }
+            }
+
+            const netSalary = grossSalary - (nhifDeduction + nssfDeduction + paye);
+            document.getElementById('result').innerText = `Net Salary: KSh ${Math.floor(netSalary * 100) / 100}`;
+        }
+    </script>
+</body>
+</html>
