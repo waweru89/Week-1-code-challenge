@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/films';
+const BASE_URL = 'http://localhost:4000/films';
 const loadFirstMovie = () => fetch(`${BASE_URL}/1`).then(res => res.json()).then(showMovieDetails);
 
 const loadMovies = () => {
